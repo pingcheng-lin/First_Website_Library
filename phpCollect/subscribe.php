@@ -1,18 +1,19 @@
 <?php
     include("connect.php");
 
-    $ISBN = $_POST["ISBN"];
+    $email = $_POST["email"];
 
-    // delete a data
-    $query = "DELETE FROM ADMIN.BOOKS WHERE B_ISBN='".$ISBN."'";
+    // Insert some data
+    $query = "INSERT INTO ADMIN.USERS(U_EMAIL) VALUES (:email)";
     $s = oci_parse($connect, $query);
     if (!$s) {
         $message = oci_error($connect);
         trigger_error("Could not parse statement: ". $message["message"], E_USER_ERROR);
     }
+    oci_bind_by_name($s, ':email', $email);
 
-    $resuly = oci_execute($s, OCI_NO_AUTO_COMMIT); // for PHP <= 5.3.1 use OCI_DEFAULT instead
-    if (!$resuly) {
+    $result = oci_execute($s, OCI_NO_AUTO_COMMIT); // for PHP <= 5.3.1 use OCI_DEFAULT instead
+    if (!$result) {
         $message = oci_error($s);
         trigger_error("Could not execute statement: ". $message["message"], E_USER_ERROR);
     }

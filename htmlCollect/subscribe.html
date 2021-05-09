@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Library (Remove)</title>
+	<title>Library (Subscribe)</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -20,59 +20,57 @@
 		<div class="navbar-header">
 			<a class="navbar-brand" href="home.html">Library</a>
 		</div>
-		<ul class="nav navbar-nav">
+		
+        <ul class="nav navbar-nav">
 			<li><a href="home.html">Home</a></li>
 			<li><a href="search.html">Search</a></li>
 			<li><a href="add.html">Add</a></li>
-			<li class="active"><a href="#">Remove</a></li>
+			<li><a href="remove.html">Remove</a></li>
 			<li><a href="register.html">Register</a></li>
-			<li><a href="subscribe.html">Subscribe</a></li>
+			<li class="active"><a href="#">Subscribe</a></li>
 		</ul>
 	</div>
 </nav>
 
 <div class="jumbotron text-center ">
-	<h1>Remove a book!</h1>
-    <h4>It must be useless ( ･ὢ･#)!</h4>
+	<h1>Subscribe to our library!</h1>
+    <h4>Send notification!</h4>
 	<p><small class="text-muted">--Ben--</small></p>
 </div>
-
 <script type="text/javascript">
 	function clickMe(){
-		var x = document.getElementById("ISBN").value;
+		var x = document.getElementById("email").value;
 		if(x == "") {
-			alert("ERROR: Need to input an ISBN!");
+			alert("ERROR: Need to input an email!");
 			return;
 		}
 		$.ajax({
 			type:"POST",  //傳值方式有分 post & get
-			url:'../phpCollect/deleteBooks.php',
+			url:'../phpCollect/subscribe.php',
 			data:{  // 傳值設定
-				ISBN: x,
+				email: x,
 			},
 			dataType:"JSON", // 設定回傳型態
 			// 如果傳值成功時
 			success:function(data){
 				console.log(data);
-				alert("Thanks for remove a useless book!");
+				alert("Thanks for subscribing us!");
 			},
 			// 如果傳值失敗時
 			error:function(){
-				alert("ERROR: There is a bug flying.");
+				alert("ERROR: High possible for duplicate e-mail!");
 				console.log("ERROR");
 			}
 		});
 	}
 </script>
-
 <form style="text-align: center;width: 25%;" class="center-block">
     <div class="form-group">
-      <label for="ISBN">ISBN：</label>
-      <input type="text" class="form-control " name="ISBN" id="ISBN" placeholder="Enter ISBN" style="text-align: center;">
+      <label for="email">E-mail：</label>
+      <input type="text" class="form-control " name="email" id="email" placeholder="Enter E-mail" style="text-align: center;">
     </div>
     <input type="reset" class="btn btn-primary" name="button" value="Reset">
-    <button type="button" onclick="clickMe()" class="btn btn-success">Remove</button>
+    <button type="button" onclick="clickMe()" class="btn btn-success">Let's go</button>
 </form><br>
-
 </body>
 </html>

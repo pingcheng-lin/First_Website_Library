@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Library (Add)</title>
+	<title>Library (Register)</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 	<!-- Latest compiled and minified JavaScript -->
@@ -23,51 +23,50 @@
 		<ul class="nav navbar-nav">
 			<li><a href="home.html">Home</a></li>
 			<li><a href="search.html">Search</a></li>
-			<li class="active"><a href="#">Add</a></li>
+			<li><a href="add.html">Add</a></li>
 			<li><a href="remove.html">Remove</a></li>
-			<li><a href="register.html">Register</a></li>
+			<li class="active"><a href="#">Register</a></li>
 			<li><a href="subscribe.html">Subscribe</a></li>
 		</ul>
 	</div>
 </nav>
 
 <div class="jumbotron text-center ">
-	<h1>Add some books here!</h1>
-    <h4>Enrich knowledge (｡･ω･｡)!</h4>
+	<h1>Borrow or Return?</h1>
+	<h4>If the book are not borrowed, you can borrow it.</h4>
+	<h4>If you input your the same book and e-mail to return.</h4>
+    <h4>If it is already borrowed, we will remind him/her.</h4>
 	<p><small class="text-muted">--Ben--</small></p>
 </div>
+
 <script type="text/javascript">
 	function clickMe(){
 		var x = document.getElementById("ISBN").value;
-		var y = document.getElementById("title").value;
-		var z = document.getElementById("subject").value;
+		var y = document.getElementById("email").value;
 		if(x == "") {
 			alert("ERROR: Need to input an ISBN!");
 			return;
 		}
+		if(y == "") {
+			alert("ERROR: Need to input an e-mail!");
+			return;
+		}
 		$.ajax({
 			type:"POST",  //傳值方式有分 post & get
-			url:'../phpCollect/insertBooks.php',
+			url:'../phpCollect/register.php',
 			data:{  // 傳值設定
-				ISBN: x,
-				title: y,
-				subject: z
+				value1: x,
+				value2: y,
 			},
 			dataType:"JSON", // 設定回傳型態
 			// 如果傳值成功時
 			success:function(data){
 				console.log(data);
-				let email = new Array();
-				for(let i in data){
-					email.push(data[i]["U_EMAIL"]);
-				}
-				console.log(email);
-				sendEmail(email)
-				alert("Thanks for adding a book!");
+				alert("Thanks!");
 			},
 			// 如果傳值失敗時
 			error:function(){
-				alert("ERROR: High possible for duplicate books!");
+				alert("ERROR: There is a bug flying.");
 				console.log("ERROR");
 			}
 		});
@@ -84,21 +83,18 @@
 			);
 	}
 </script>
+
 <form style="text-align: center;width: 25%;" class="center-block">
     <div class="form-group">
-      <label for="ISBN">ISBN：</label>
+      <label for="ISBN">ISBN-13：</label>
       <input type="text" class="form-control " name="ISBN" id="ISBN" placeholder="Enter ISBN" style="text-align: center;">
     </div>
     <div class="form-group">
-      <label for="title">Title：</label>
-      <input type="text" class="form-control" name="title" id="title" placeholder="Enter Title" style="text-align: center;">
-    </div>
-    <div class="form-group">
-        <label for="subject">Subject：</label>
-        <input type="text" class="form-control" name="subject" id="subject" placeholder="Enter Subject" style="text-align: center;">
+        <label for="email">Your E-mail:</label>
+        <input type="text" class="form-control" name="email" id="email" placeholder="Enter E-mail" style="text-align: center;">
     </div>
     <input type="reset" class="btn btn-primary" name="button" value="Reset">
-    <button type="button" onclick="clickMe()" class="btn btn-success">Add</button>
+    <button type="button" onclick="clickMe()" class="btn btn-success">Run</button>
 </form><br>
 
 </body>
