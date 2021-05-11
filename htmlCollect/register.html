@@ -62,7 +62,12 @@
 			// 如果傳值成功時
 			success:function(data){
 				console.log(data);
-				alert("Thanks!");
+				if (data == "success borrow")
+					alert("You successfully borrow a book!");
+				else if (data == "success return")
+					alert("You successfully return a book!");
+				else
+					sendEmail(email);
 			},
 			// 如果傳值失敗時
 			error:function(){
@@ -73,14 +78,14 @@
 	}
 	function sendEmail(email) {
 		emailjs.init("user_Ssp7W9iIOfqrjBrDyzIIh");
-		for(i = 0; i < email.length; i++)
-			emailjs.send("service_0zey668","template_663vu89",{
-				from_name: "Database System",
-				to_name: "Users",
-				message: "New book available!!!",
-				toMail: email[i],
-				}
-			);
+		i = 0;
+		emailjs.send("service_0zey668","template_663vu89",{
+			from_name: "Database System",
+			to_name: "Users",
+			message: "New book available!!!",
+			toMail: email[i],
+			}
+		);
 	}
 </script>
 

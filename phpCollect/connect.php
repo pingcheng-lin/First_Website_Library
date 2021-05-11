@@ -1,7 +1,7 @@
 <?php
 
 $username = "demo_user";
-$password = "This isn't my password";
+$password = "";
 $connect_string = "demo_low";
 //$dbname = $_POST["db"];
 
