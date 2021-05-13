@@ -1,7 +1,9 @@
 <?php
     include("connect.php");
+
     $type = $_POST["db"];
     $value = $_POST["value"];
+    
     if($type == "ISBN") {
         $query = "SELECT * FROM ADMIN.BOOKS WHERE B_ISBN LIKE '%".$value."%'";
     } elseif($type == "title") {

@@ -69,30 +69,26 @@
 					alert("You successfully return a book!");
 				}
 				else {
-					let email = new Array();
-					email.push(data[0]["U_EMAIL"]);
-					console.log(email);
-					sendEmail(email);
+					sendEmail(data);
 					alert("We notify the user who borrowed that book!");
 				}
 			},
 			// 如果傳值失敗時
 			error:function(){
-				alert("ERROR: There is a bug flying.");
+				alert("ERROR: High possible for the book is not exist!");
 				console.log("ERROR");
 			}
 		});
 	}
 	function sendEmail(email) {
 		emailjs.init("user_Ssp7W9iIOfqrjBrDyzIIh");
-		for(i = 0; i < email.length; i++)
-			emailjs.send("service_0zey668","template_663vu89",{
-				from_name: "Database System",
-				to_name: "Users",
-				message: "New book available!!!",
-				toMail: email[i],
-				}
-			);
+		emailjs.send("service_0zey668","template_663vu89",{
+			from_name: "Database System",
+			to_name: "Users",
+			message: "New book available!!!",
+			toMail: email,
+			}
+		);
 	}
 </script>
 
