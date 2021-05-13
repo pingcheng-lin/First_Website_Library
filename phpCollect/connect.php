@@ -1,9 +1,8 @@
 <?php
 
 $username = "demo_user";
-$password = "";
+$password = "This is not my password.";
 $connect_string = "demo_low";
-//$dbname = $_POST["db"];
 
 // Connect
 $connect = oci_connect($username, $password, $connect_string);

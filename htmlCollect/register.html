@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 	<!-- Latest compiled and minified JavaScript -->
@@ -62,12 +62,19 @@
 			// 如果傳值成功時
 			success:function(data){
 				console.log(data);
-				if (data == "success borrow")
+				if (data == "success borrow") {
 					alert("You successfully borrow a book!");
-				else if (data == "success return")
+				}
+				else if (data == "success return") {
 					alert("You successfully return a book!");
-				else
+				}
+				else {
+					let email = new Array();
+					email.push(data[0]["U_EMAIL"]);
+					console.log(email);
 					sendEmail(email);
+					alert("We notify the user who borrowed that book!");
+				}
 			},
 			// 如果傳值失敗時
 			error:function(){
@@ -78,14 +85,14 @@
 	}
 	function sendEmail(email) {
 		emailjs.init("user_Ssp7W9iIOfqrjBrDyzIIh");
-		i = 0;
-		emailjs.send("service_0zey668","template_663vu89",{
-			from_name: "Database System",
-			to_name: "Users",
-			message: "New book available!!!",
-			toMail: email[i],
-			}
-		);
+		for(i = 0; i < email.length; i++)
+			emailjs.send("service_0zey668","template_663vu89",{
+				from_name: "Database System",
+				to_name: "Users",
+				message: "New book available!!!",
+				toMail: email[i],
+				}
+			);
 	}
 </script>
 
