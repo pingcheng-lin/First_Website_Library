@@ -1,7 +1,7 @@
 <?php
 
 $username = "demo_user";
-$password = "This is not my password";
+$password = "this is not my password";
 $connect_string = "demo_low";
 
 // Connect
